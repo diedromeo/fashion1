@@ -30,11 +30,14 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 30px;
+      padding: 20px;
       border-radius: 10px;
       background: rgba(255, 255, 255, 0.7);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       transition: transform 0.5s ease;
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
     }
 
     .container:hover {
@@ -43,8 +46,8 @@
 
     .profile-pic {
       border-radius: 50%;
-      width: 120px;
-      height: 120px;
+      width: 100px;
+      height: 100px;
       margin-bottom: 20px;
       animation: bounce 2s infinite ease-in-out;
     }
@@ -55,7 +58,7 @@
     }
 
     .message {
-      font-size: 36px;
+      font-size: 28px;
       color: #333;
       font-weight: bold;
       letter-spacing: 1px;
@@ -89,7 +92,7 @@
 
     video {
       width: 100%;
-      max-width: 600px;
+      max-width: 100%;
       border-radius: 10px;
       margin-bottom: 20px;
       opacity: 0;
@@ -106,7 +109,7 @@
       color: white;
       border: none;
       padding: 10px 20px;
-      font-size: 18px;
+      font-size: 16px;
       cursor: pointer;
       border-radius: 5px;
       transition: background-color 0.3s ease, transform 0.3s ease;
@@ -122,7 +125,7 @@
     }
 
     .letter {
-      font-size: 24px;
+      font-size: 18px;
       color: #333;
       text-align: center;
       margin-bottom: 20px;
@@ -133,6 +136,47 @@
     @keyframes fadeInLetter {
       0% { opacity: 0; }
       100% { opacity: 1; }
+    }
+
+    /* Responsive Styles */
+    @media screen and (max-width: 768px) {
+      .message {
+        font-size: 24px;
+      }
+
+      .letter {
+        font-size: 16px;
+      }
+
+      .profile-pic {
+        width: 80px;
+        height: 80px;
+      }
+
+      button {
+        font-size: 14px;
+        padding: 8px 16px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .message {
+        font-size: 20px;
+      }
+
+      .letter {
+        font-size: 14px;
+      }
+
+      .profile-pic {
+        width: 60px;
+        height: 60px;
+      }
+
+      button {
+        font-size: 12px;
+        padding: 6px 12px;
+      }
     }
   </style>
 </head>
@@ -145,7 +189,7 @@
 
     <!-- Letter Message -->
     <div class="letter">
-       I Hope you'll love the surprise! 😊🎥
+      I Hope you'll love the surprise! 😊🎥
     </div>
     
     <!-- Video Player -->
@@ -155,62 +199,35 @@
     </video>
     
     <!-- Audio Player -->
-    <audio id="audioPlayer" loop>
-      <source src="/upload_file/2/Radha Nu Rup Che Ringtone _(mobcup.com.in).mp3" type="audio/mp3">
-      Your browser does not support the audio element.
-    </audio>
     
     <!-- Shuffle (Next) Button -->
     <button id="shuffleBtn">Next Video</button>
   </div>
 
   <script>
-    // Array of videos
-    const videos = [
-      '1.mp4',
-      '2.mp4',
-      '3.mp4',
-      '4.mp4',
-      '5.mp4',
-    ];
-
-    // Get the video player, audio player, shuffle button, and letter message elements
+    const videos = ['1.mp4', '2.mp4', '3.mp4', '4.mp4', '5.mp4'];
     const videoPlayer = document.getElementById('videoPlayer');
     const audioPlayer = document.getElementById('audioPlayer');
     const shuffleBtn = document.getElementById('shuffleBtn');
     const letterMessage = document.querySelector('.letter');
-
-    // Track the current video index
     let currentIndex = 0;
 
-    // Play the audio and video simultaneously when page loads
     window.onload = function() {
       audioPlayer.play();
       videoPlayer.play();
       letterMessage.style.opacity = 1;
     };
 
-    // Next button functionality (to go to next video)
     shuffleBtn.addEventListener('click', function() {
-      // Fade out the current video
       videoPlayer.style.opacity = 0;
-
-      // Wait for the fade-out to complete before changing the video
       setTimeout(function() {
-        // Increment the video index, and loop back to 0 if the last video is reached
         currentIndex = (currentIndex + 1) % videos.length;
-        // Change the video source
         videoPlayer.src = videos[currentIndex];
-        // Reload and play the new video
         videoPlayer.load();
         videoPlayer.play();
-        
-        // Fade in the new video
         videoPlayer.style.opacity = 1;
-        
-        // Keep the audio playing
         audioPlayer.play();
-      }, 500); // Wait for fade-out to complete
+      }, 500);
     });
   </script>
 </body>
