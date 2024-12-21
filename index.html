@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surprise for You Prerana</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: backgroundChange 10s infinite alternate;
+      background: linear-gradient(135deg, #ffadad, #ffc3a0);
+      overflow: hidden;
+    }
+
+    @keyframes backgroundChange {
+      0% { background: linear-gradient(135deg, #ffadad, #ffc3a0); }
+      25% { background: linear-gradient(135deg, #ffb3e6, #ff99cc); }
+      50% { background: linear-gradient(135deg, #ff99cc, #e6a4d7); }
+      75% { background: linear-gradient(135deg, #ffc3a0, #ffadad); }
+      100% { background: linear-gradient(135deg, #ffadad, #ffc3a0); }
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.5s ease;
+    }
+
+    .container:hover {
+      transform: scale(1.05);
+    }
+
+    .profile-pic {
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      margin-bottom: 20px;
+      animation: bounce 2s infinite ease-in-out;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .message {
+      font-size: 36px;
+      color: #333;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    .typing-animation {
+      border-right: 5px solid #333;
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: typing 4s steps(30) 1s forwards, blink 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    video {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeInVideo 2s forwards;
+    }
+
+    @keyframes fadeInVideo {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    button {
+      background-color: #ff6347;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e5533d;
+      transform: scale(1.1);
+    }
+
+    button:active {
+      transform: scale(1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://thumbs.dreamstime.com/b/programmer-cat-lying-keyboard-against-background-monitors-299757775.jpg" alt="Profile Picture" class="profile-pic">
+    <div class="message">
+      <span class="typing-animation">Surprise for you, Prerana!</span>
+    </div>
+    
+    <!-- Video Player -->
+    <video id="videoPlayer" controls>
+      <source src="1.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    
+    <!-- Audio Player -->
+    <audio id="audioPlayer" loop>
+      <source src="/upload_file/2/Radha Nu Rup Che Ringtone _(mobcup.com.in).mp3" type="audio/mp3">
+      Your browser does not support the audio element.
+    </audio>
+    
+    <!-- Shuffle (Next) Button -->
+    <button id="shuffleBtn">Next Video</button>
+  </div>
+
+  <script>
+    // Array of videos
+    const videos = [
+      '1.mp4',
+      '2.mp4',
+      '3.mp4',
+      '4.mp4',
+      '5.mp4',
+    ];
+
+    // Get the video player, audio player, and shuffle button elements
+    const videoPlayer = document.getElementById('videoPlayer');
+    const audioPlayer = document.getElementById('audioPlayer');
+    const shuffleBtn = document.getElementById('shuffleBtn');
+
+    // Track the current video index
+    let currentIndex = 0;
+
+    // Play the audio and video simultaneously when page loads
+    window.onload = function() {
+      audioPlayer.play();
+      videoPlayer.play();
+    };
+
+    // Next button functionality (to go to next video)
+    shuffleBtn.addEventListener('click', function() {
+      // Fade out the current video
+      videoPlayer.style.opacity = 0;
+
+      // Wait for the fade-out to complete before changing the video
+      setTimeout(function() {
+        // Increment the video index, and loop back to 0 if the last video is reached
+        currentIndex = (currentIndex + 1) % videos.length;
+        // Change the video source
+        videoPlayer.src = videos[currentIndex];
+        // Reload and play the new video
+        videoPlayer.load();
+        videoPlayer.play();
+        
+        // Fade in the new video
+        videoPlayer.style.opacity = 1;
+        
+        // Keep the audio playing
+        audioPlayer.play();
+      }, 500); // Wait for fade-out to complete
+    });
+  </script>
+</body>
+</html>
