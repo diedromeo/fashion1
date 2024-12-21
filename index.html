@@ -120,6 +120,20 @@
     button:active {
       transform: scale(1);
     }
+
+    .letter {
+      font-size: 24px;
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeInLetter 3s forwards;
+    }
+
+    @keyframes fadeInLetter {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
   </style>
 </head>
 <body>
@@ -127,6 +141,11 @@
     <img src="https://thumbs.dreamstime.com/b/programmer-cat-lying-keyboard-against-background-monitors-299757775.jpg" alt="Profile Picture" class="profile-pic">
     <div class="message">
       <span class="typing-animation">Surprise for you, Prerana!</span>
+    </div>
+
+    <!-- Letter Message -->
+    <div class="letter">
+      Here's a ramp walk video, hope you'll love the surprise! 😊🎥
     </div>
     
     <!-- Video Player -->
@@ -155,10 +174,11 @@
       '5.mp4',
     ];
 
-    // Get the video player, audio player, and shuffle button elements
+    // Get the video player, audio player, shuffle button, and letter message elements
     const videoPlayer = document.getElementById('videoPlayer');
     const audioPlayer = document.getElementById('audioPlayer');
     const shuffleBtn = document.getElementById('shuffleBtn');
+    const letterMessage = document.querySelector('.letter');
 
     // Track the current video index
     let currentIndex = 0;
@@ -167,6 +187,7 @@
     window.onload = function() {
       audioPlayer.play();
       videoPlayer.play();
+      letterMessage.style.opacity = 1;
     };
 
     // Next button functionality (to go to next video)
